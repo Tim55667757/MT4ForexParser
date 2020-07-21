@@ -5,7 +5,7 @@ branches:
   - master
   - develop
 install:
-  - pip install pytest coverage codacy-coverage
+  - pip install pytest coverage codacy-coverage pandas
 script:
   - coverage run -m py.test tests
   - coverage xml
