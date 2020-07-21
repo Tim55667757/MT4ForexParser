@@ -15,10 +15,10 @@ class TestBaseMethods():
 
     def test_ParserReturnPandasDataframe(self):
         testData = [
-            [os.path.abspath("EURUSD240_old_format_400.hst"), os.path.abspath("EURUSD240_old_format_400.csv")],
-            [os.path.abspath("EURUSD240_new_format_401.hst"), os.path.abspath("EURUSD240_new_format_401.csv")],
-            [os.path.abspath("EURUSD240_old_format_400.hst"), None],
-            [os.path.abspath("EURUSD240_new_format_401.hst"), None],
+            [os.path.abspath("tests/EURUSD240_old_format_400.hst"), os.path.abspath("tests/EURUSD240_old_format_400.csv")],
+            [os.path.abspath("tests/EURUSD240_new_format_401.hst"), os.path.abspath("tests/EURUSD240_new_format_401.csv")],
+            [os.path.abspath("tests/EURUSD240_old_format_400.hst"), None],
+            [os.path.abspath("tests/EURUSD240_new_format_401.hst"), None],
         ]
         for test in testData:
             result = MT4ForexParser.MT4ParseToPD(historyFile=test[0], outputFile=test[1])
@@ -26,7 +26,7 @@ class TestBaseMethods():
 
     def test_ParserCreateOutputFile(self):
         MT4ForexParser.MT4ParseToPD(
-            historyFile=os.path.abspath("EURUSD240_new_format_401.hst"),
-            outputFile=os.path.abspath("test.csv")
+            historyFile=os.path.abspath("tests/EURUSD240_new_format_401.hst"),
+            outputFile=os.path.abspath("tests/test.csv")
         )
-        assert os.path.exists(os.path.abspath("test.csv")), "Output file must be created after parser work finished!"
+        assert os.path.exists(os.path.abspath("tests/test.csv")), "Output file must be created after parser work finished!"
