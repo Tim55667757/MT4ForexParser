@@ -4,23 +4,27 @@ branches:
   only:
   - master
   - develop
+
 install:
   - pip install pytest coverage codacy-coverage pandas
+
 script:
   - coverage run -m py.test tests
   - coverage xml
   - if [[ ! $CODACY_PROJECT_TOKEN ]]; then echo "Variable CODACY_PROJECT_TOKEN not set. Step is skipped."; else python-codacy-coverage -r coverage.xml; fi
+
 deploy:
   provider: pypi
   username: "__token__"
-  password:
-    secure: "pypi-AgEIcHlwaS5vcmcCJGI5MjkxZTlhLTM3MDctNDIyZS1hMGU1LWFkZTU1MTEyMDYwMgACJXsicGVybWlzc2lvbnMiOiAidXNlciIsICJ2ZXJzaW9uIjogMX0AAAYg5q0ZySrN_P914rb8NKWiAOpZMYsO0z6GUF52FgrVoWc"
+  password: ""
   distributions: sdist bdist_wheel
   on:
     all_branches: true
   skip_cleanup: true
+
 after_script:
   - echo "Deploy to PyPI finished."
+
 env:
   global:
   - secure: ""
