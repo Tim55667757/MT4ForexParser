@@ -84,8 +84,8 @@ def ParseArgs():
     """
     parser = ArgumentParser()  # command-line string parser
 
-    parser.description = "Metatrader 4 forex history parser. Read, parse and save history as .csv-file or pandas dataframe."
-    parser.usage = "python MT4ForexParser.py [some options] [one command]"
+    parser.description = "Metatrader 4 forex history parser. Read, parse and save history as .csv-file or pandas dataframe. See examples: https://tim55667757.github.io/MT4ForexParser"
+    parser.usage = "mt4forexparser [some options] [one command]"
 
     # options:
     parser.add_argument("--mt4-history", type=str, required=True, help="Option (required): full path to Metatrader 4 forex history file.")
