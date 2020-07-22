@@ -46,7 +46,7 @@ setup(
 
     url="https://github.com/Tim55667757/MT4ForexParser/",
 
-    download_url="git@github.com:Tim55667757/MT4ForexParser.git",
+    download_url="https://github.com/Tim55667757/MT4ForexParser.git",
 
     entry_points={"console_scripts": ["mt4forexparser = mt4forexparser.MT4ForexParser:Main"]},
 
