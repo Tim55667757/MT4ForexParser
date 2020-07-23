@@ -9,7 +9,8 @@ install:
   - pip install pytest coverage codacy-coverage pandas
 
 script:
-  - py.test tests
+  - coverage run -m py.test tests
+  - coverage xml
 
 deploy:
   provider: pypi
