@@ -9,9 +9,7 @@ install:
   - pip install pytest coverage codacy-coverage pandas
 
 script:
-  - coverage run -m py.test tests
-  - coverage xml
-  - if [[ ! $CODACY_PROJECT_TOKEN ]]; then echo "Variable CODACY_PROJECT_TOKEN not set. Step is skipped."; else python-codacy-coverage -r coverage.xml; fi
+  - py.test tests
 
 deploy:
   provider: pypi
@@ -25,7 +23,3 @@ deploy:
 
 after_script:
   - echo "Deploy to PyPI finished."
-
-env:
-  global:
-  - secure: ""
