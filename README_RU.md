@@ -1,5 +1,9 @@
 # MT4ForexParser
 
+[![build](https://travis-ci.org/Tim55667757/MT4ForexParser.svg?branch=master)](https://travis-ci.org/Tim55667757/MT4ForexParser)
+[![pypi](https://img.shields.io/pypi/v/MT4ForexParser.svg)](https://pypi.python.org/pypi/MT4ForexParser)
+[![license](https://img.shields.io/pypi/l/MT4ForexParser.svg)](https://github.com/Tim55667757/MT4ForexParser/blob/master/LICENSE)
+
 У всех трейдеров периодически возникает необходимость получить исторические данные по валютам Forex для дальнейшего анализа цен и построения графиков. Чаще всего эти данные поставляются на платной основе, либо вам приходится тратить много времени на ручную выгрузку данных на специальных сайтах.
 
 Однако большинство Forex брокеров работают с торговой платформой MetaTrader 4 и загружают туда данные в специальном бинарном .hst-формате MetaTrader 4 (не в .csv). Этим можно воспользоваться и получить исторические свечи подключившись к серверу брокера в демо-режиме, который есть почти у всех брокеров. При этом сжатый бинарный .hst-файл будет скачан локально в рабочий каталог MetaTrader 4.

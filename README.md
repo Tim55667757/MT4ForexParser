@@ -1,5 +1,9 @@
 # MT4ForexParser
 
+[![build](https://travis-ci.org/Tim55667757/MT4ForexParser.svg?branch=master)](https://travis-ci.org/Tim55667757/MT4ForexParser)
+[![pypi](https://img.shields.io/pypi/v/MT4ForexParser.svg)](https://pypi.python.org/pypi/MT4ForexParser)
+[![license](https://img.shields.io/pypi/l/MT4ForexParser.svg)](https://github.com/Tim55667757/MT4ForexParser/blob/master/LICENSE)
+
 All traders sometimes need to get historical data on Forex currencies for further price analysis and charting. Most often this data is supplied for paid or you have to spend a lot of time manually uploading data from special sites.
 
 However, most Forex brokers work with the MetaTrader 4 trading platform and upload data there in a special binary MetaTrader 4 .hst format (not in .csv). You can use a trick and get historical candles by connecting to the broker's server in demo mode, which almost all brokers have. The compressed binary .hst file will be downloaded locally to the MetaTrader 4 working directory.
