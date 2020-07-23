@@ -1,6 +1,6 @@
 # MT4ForexParser
 
-[![build](https://travis-ci.org/Tim55667757/MT4ForexParser.svg?branch=master)](https://travis-ci.org/Tim55667757/MT4ForexParser)
+[![build](https://travis-ci.org/Tim55667757/MT4ForexParser.svg)](https://travis-ci.org/Tim55667757/MT4ForexParser)
 [![pypi](https://img.shields.io/pypi/v/MT4ForexParser.svg)](https://pypi.python.org/pypi/MT4ForexParser)
 [![license](https://img.shields.io/pypi/l/MT4ForexParser.svg)](https://github.com/Tim55667757/MT4ForexParser/blob/master/LICENSE)
 
