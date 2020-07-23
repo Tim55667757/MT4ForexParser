@@ -4,38 +4,38 @@
 [![pypi](https://img.shields.io/pypi/v/MT4ForexParser.svg)](https://pypi.python.org/pypi/MT4ForexParser)
 [![license](https://img.shields.io/pypi/l/MT4ForexParser.svg)](https://github.com/Tim55667757/MT4ForexParser/blob/master/LICENSE)
 
-All traders sometimes need to get historical data on Forex currencies for further price analysis and charting. Most often this data is supplied for paid or you have to spend a lot of time manually uploading data from special sites.
+У всех трейдеров периодически возникает необходимость получить исторические данные по валютам Forex для дальнейшего анализа цен и построения графиков. Чаще всего эти данные поставляются на платной основе, либо вам приходится тратить много времени на ручную выгрузку данных на специальных сайтах.
 
-However, most Forex brokers work with the MetaTrader 4 trading platform and upload data there in a special binary MetaTrader 4 .hst format (not in .csv). You can use a trick and get historical candles by connecting to the broker's server in demo mode, which almost all brokers have. The compressed binary .hst file will be downloaded locally to the MetaTrader 4 working directory.
+Однако большинство Forex брокеров работают с торговой платформой MetaTrader 4 и загружают туда данные в специальном бинарном .hst-формате MetaTrader 4 (не в .csv). Этим можно воспользоваться и получить исторические свечи подключившись к серверу брокера в демо-режиме, который есть почти у всех брокеров. При этом сжатый бинарный .hst-файл будет скачан локально в рабочий каталог MetaTrader 4.
 
-Then you can run the mt4forexparser python module, which can read .hst files and save them as a text .csv file or pandas dataframe. You will get a table that contains columns of data in the following sequence: "date", "time", "open", "high", "low", "close", "volume". One line is a set of data for plotting one candlestick.
+Далее можно запустить python-модулем mt4forexparser, который умеет читать файлы формата .hst и сохранять их как текстовый .csv-файл или pandas dataframe. Вы получите таблицу, которая содержит колонки данных в следующей последовательности: "date", "time", "open", "high", "low", "close", "volume". Одна строка — это набор данных для построения одной "японской свечи" (candlestick).
 
-See russian readme here (инструкция на русском здесь): https://github.com/Tim55667757/MT4ForexParser/blob/master/README_RU.md
+See english readme here: https://github.com/Tim55667757/MT4ForexParser/blob/master/README.md
 
 
-## Setup
+## Как установить
 
-The easiest way is to install via PyPI:
+Проще всего использовать установку через PyPI:
 ```commandline
 pip install mt4forexparser
 ```
 
-After that, you can check the installation with the command:
+После этого можно проверить установку командой:
 ```commandline
 pip show mt4forexparser
 ```
 
 
-## Usage examples
+## Примеры использования
 
-### From the command line
+### Из командной строки
 
-Get help:
+Внутренняя справка по ключам:
 ```commandline
 mt4forexparser --help
 ```
 
-Output:
+Вывод:
 ```
 usage: python MT4ForexParser.py [some options] [one command]
 
@@ -59,15 +59,14 @@ optional arguments:
 Process finished with exit code 0
 ```
 
+Поддерживаются две версии форматов файлов .hst: 400 и 401, они определяются автоматически. Попробуйте проверить работу парсера через командную строку на двух приложенных файлах различного формата: ./tests/EURUSD240_old_format_400.hst и ./tests/EURUSD240_new_format_401.hst.
 
-.hst-file formats are supported in two versions: 400 and 401 and are automatically detected. Try to check how the parser work through the command line using two attached files of different formats: ./tests/EURUSD240_old_format_400.hst and ./tests/EURUSD240_new_format_401.hst.
-
-The command could be like this:
+Команда запуска может быть такая:
 ```commandline
 mt4forexparser --mt4-history ./tests/EURUSD240_old_format_400.hst --output ./tests/EURUSD240_old_format_400.csv --debug-level 10 --parse
 ```
 
-If successful, you should get a log output similar to the following:
+В случае успеха вы должны получить вывод логов примерно следующего содержания:
 ```
 MT4ForexParser.py   L:118  DEBUG   [2020-07-21 20:47:00,134] MT4 parser started: 2020-07-21 20:47:00
 MT4ForexParser.py   L:38   DEBUG   [2020-07-21 20:47:00,134] MT4 history file: [./tests/EURUSD240_old_format_400.hst]
@@ -86,7 +85,7 @@ MT4ForexParser.py   L:154  DEBUG   [2020-07-21 20:47:00,384] MT4 parser work fin
 Process finished with exit code 0
 ```
 
-This will give you file ./tests/EURUSD240_old_format_400.csv with the following content (5909 lines in total):
+При этом вы получите .csv-файл ./tests/EURUSD240_old_format_400.csv следующего содержания (всего 5909 строк):
 ```
 2009.12.21,00:00,1.4311,1.4347,1.4311,1.4342,5504
 2009.12.21,04:00,1.4342,1.4357,1.4327,1.4334,5234
@@ -97,12 +96,12 @@ This will give you file ./tests/EURUSD240_old_format_400.csv with the following 
 2013.10.18,20:00,1.36793,1.36849,1.36765,1.36839,1955
 ```
 
-Likewise for parsing a file with new format:
+Аналогично для парсинга файла нового формата:
 ```commandline
 mt4forexparser --mt4-history ./tests/EURUSD240_new_format_401.hst --output ./tests/EURUSD240_new_format_401.csv --debug-level 10 --parse
 ```
 
-If successful, you will receive something like this output:
+В случае успеха вы получите примерно такой вывод логов:
 ```
 MT4ForexParser.py   L:118  DEBUG   [2020-07-21 20:55:42,594] MT4 parser started: 2020-07-21 20:55:42
 MT4ForexParser.py   L:38   DEBUG   [2020-07-21 20:55:42,595] MT4 history file: [./tests/EURUSD240_new_format_401.hst]
@@ -121,7 +120,7 @@ MT4ForexParser.py   L:154  DEBUG   [2020-07-21 20:55:43,189] MT4 parser work fin
 Process finished with exit code 0
 ```
 
-The file ./tests/EURUSD240_new_format_401.csv will be completely similar and include the same columns: "date", "time", "open", "high", "low", "close", "volume" (total 12969 lines):
+Файл ./tests/EURUSD240_new_format_401.csv будет полностью аналогичный и включать те же самые столбцы "date", "time", "open", "high", "low", "close", "volume" (всего 12969 строк):
 ```
 2009.12.21,00:00,1.4311,1.4347,1.4311,1.4342,5504
 2009.12.21,04:00,1.4342,1.4357,1.4327,1.4334,5234
@@ -133,20 +132,20 @@ The file ./tests/EURUSD240_new_format_401.csv will be completely similar and inc
 ```
 
 
-### Using import
+### Через импорт модуля
 
-Let's look an example of parsing a history file of a new format (version 401 for MetaTrader 4) ./tests/EURUSD240_new_format_401.hst:
+Рассмотрим на примере парсинга файла истории нового формата (версии 401 для MetaTrader 4) ./tests/EURUSD240_new_format_401.hst:
 ```
 from mt4forexparser.MT4ForexParser import MT4ParseToPD as Parser
 
-# Parsing historical candles and save the data into a pandas dataframe variable.
-# To save candles to a file, you can specify the variable outputFile="./tests/EURUSD240_new_format_401.csv"
-# If the variable outputFile is not specified, the module will only return data in pandas dataframe format.
+# Распарсим исторические свечи и сохраним данные в переменную типа pandas dataframe.
+# Для сохранения свечей в файл можно указать переменную outputFile="./tests/EURUSD240_new_format_401.csv"
+# Если переменная outputFile не будет указана, модуль вернёт только данные в формате pandas dataframe.
 df = Parser(historyFile="./tests/EURUSD240_new_format_401.hst")
-print(df)
+print(df)  # выведем данные по свечам в формате pandas dataframe
 ```
 
-At run we get a completely similar output:
+При запуске получим полностью аналогичный вывод:
 ```
 ...
 >>> print(df)
@@ -165,4 +164,4 @@ At run we get a completely similar output:
 ```
 
 
-I wish you success in the automation of exchange trading! ;)
+Успехов вам в автоматизации биржевой торговли! ;)
