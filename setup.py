@@ -34,7 +34,7 @@ setup(
 
     version=__version__,
 
-    description="Read forex data in MetaTrader 4 .hst-format and convert into .csv file and pandas dataframe.",
+    description="Read forex data in MetaTrader 4 .hst-format and convert into .csv file and pandas dataframe. Also you can draw an interactive chart.",
 
     long_description="GitHub Pages: https://tim55667757.github.io/MT4ForexParser",
 

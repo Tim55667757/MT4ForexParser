@@ -37,26 +37,28 @@ mt4forexparser --help
 
 Вывод:
 ```
-usage: python MT4ForexParser.py [some options] [one command]
+Запуск: python MT4ForexParser.py [параметры] [одна или несколько команд]
 
-Metatrader 4 forex history parser. Read, parse and save history as .csv-file
-or pandas dataframe.
+Парсер бинарных файлов истории Metatrader 4. Умеет читать и сохранять историю цен в виде .csv-файла
+или Pandas dataframe, а также отображать цены в виде интерактивного графика.
+Смотрите примеры: https://tim55667757.github.io/MT4ForexParser
 
-optional arguments:
-  -h, --help            show this help message and exit
+Возможные параметры командной строки:
+  -h, --help            Показать эту подсказку и выйти
   --mt4-history MT4_HISTORY
-                        Option (required): full path to Metatrader 4 forex
-                        history file.
-  --output OUTPUT       Option: full path to .csv output file. Default is
-                        None, mean that returns only pandas dataframe.
+                        Параметр (обязательный): полный путь до файла истории цен
+                        в формате Metatrader 4.
+  --output OUTPUT       Параметр: полный путь до выходного .csvфайла. По умолчанию
+                        None, при этом возвращается только Pandas dataframe.
   --debug-level DEBUG_LEVEL
-                        Option: showing STDOUT messages of minimal debug
-                        level, e.g. 10 = DEBUG, 20 = INFO, 30 = WARNING,
+                        Параметр: уровень логирования для STDOUT,
+                        например, 10 = DEBUG, 20 = INFO, 30 = WARNING,
                         40 = ERROR, 50 = CRITICAL.
-  --parse               Command: read, parse and save mt4-history as pandas
-                        dataframe or .csv-file if --output is define.
-
-Process finished with exit code 0
+  --parse               Команда: прочитать, распарсить и сохранить историю цен как
+                        Pandas dataframe или .csv-файл (если задан ключ --output).
+  --render              Команда: использовать библиотеку PriceGenerator для отрисовки
+                        интерактивного графика цен после парсинга истории. Этот ключ
+                        можно использовать только с ключом --parse.
 ```
 
 Поддерживаются две версии форматов файлов .hst: 400 и 401, они определяются автоматически. Попробуйте проверить работу парсера через командную строку на двух приложенных файлах различного формата: ./tests/EURUSD240_old_format_400.hst и ./tests/EURUSD240_new_format_401.hst.
@@ -81,8 +83,6 @@ MT4ForexParser.py   L:73   INFO    [2020-07-21 20:47:00,383] Forex history saved
 MT4ForexParser.py   L:148  DEBUG   [2020-07-21 20:47:00,384] All MT4 parser operations are finished success (summary code is 0).
 MT4ForexParser.py   L:153  DEBUG   [2020-07-21 20:47:00,384] MT4 parser work duration: 0:00:00.249747
 MT4ForexParser.py   L:154  DEBUG   [2020-07-21 20:47:00,384] MT4 parser work finished: 2020-07-21 20:47:00
-
-Process finished with exit code 0
 ```
 
 При этом вы получите .csv-файл ./tests/EURUSD240_old_format_400.csv следующего содержания (всего 5909 строк):
@@ -116,8 +116,6 @@ MT4ForexParser.py   L:73   INFO    [2020-07-21 20:55:43,187] Forex history saved
 MT4ForexParser.py   L:148  DEBUG   [2020-07-21 20:55:43,188] All MT4 parser operations are finished success (summary code is 0).
 MT4ForexParser.py   L:153  DEBUG   [2020-07-21 20:55:43,188] MT4 parser work duration: 0:00:00.594304
 MT4ForexParser.py   L:154  DEBUG   [2020-07-21 20:55:43,189] MT4 parser work finished: 2020-07-21 20:55:43
-
-Process finished with exit code 0
 ```
 
 Файл ./tests/EURUSD240_new_format_401.csv будет полностью аналогичный и включать те же самые столбцы "date", "time", "open", "high", "low", "close", "volume" (всего 12969 строк):
