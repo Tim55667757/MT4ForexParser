@@ -17,6 +17,8 @@ from argparse import ArgumentParser
 import mt4forexparser.UniLogger as uLog
 import traceback as tb
 
+from pricegenerator import PriceGenerator as pg
+
 
 # --- Common technical parameters:
 
@@ -78,6 +80,20 @@ def MT4ParseToPD(historyFile, outputFile=None):
     return df
 
 
+def Render(prices: pd.DataFrame, name="Example instrument", show=True):
+    """
+    Render interactive chart using PriceGenerator library.
+    :param prices: Pandas dataframe with prices.
+    :param name: Instrument's name for chart title.
+    :param show: Show in browser immediately if True.
+    """
+    chart = pg.PriceGenerator()
+    prices["datetime"] = pd.to_datetime(prices["date"] + " " + prices["time"])
+    chart.ticker = os.path.basename(name)
+    chart.prices = prices
+    chart.RenderBokeh(viewInBrowser=show)
+
+
 def ParseArgs():
     """
     Function get and parse command line keys.
@@ -94,6 +110,7 @@ def ParseArgs():
 
     # commands:
     parser.add_argument("--parse", action="store_true", help="Command: read, parse and save mt4-history as pandas dataframe or .csv-file if --output is define.")
+    parser.add_argument("--render", action="store_true", help="Command: use PriceGenerator module to render interactive chart from parsed data. This key only used with --parse key.")
 
     cmdArgs = parser.parse_args()
     return cmdArgs
@@ -129,7 +146,10 @@ def Main():
         # --- do one command:
 
         if args.parse:
-            MT4ParseToPD(history, output)
+            parsedData = MT4ParseToPD(history, output)
+
+            if args.render and parsedData is not None:
+                Render(prices=parsedData, name=history, show=True)
 
         else:
             raise Exception("One of the possible commands must be selected! See: python MT4ForexParser.py --help")
