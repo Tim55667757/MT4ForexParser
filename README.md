@@ -132,6 +132,18 @@ The file ./tests/EURUSD240_new_format_401.csv will be completely similar and inc
 2019.07.08,16:00,1.12228,1.1224,1.12091,1.12153,7381
 ```
 
+Also, you can draw an interactive chart (see: [PriceGenerator](https://github.com/Tim55667757/PriceGenerator) library) using `--render` key after `--parse` key:
+```commandline
+mt4forexparser --mt4-history ./tests/EURUSD240_new_format_401.hst --output test.csv --parse --render
+```
+
+After running the command above, you will get three files:
+- `test.csv` — .csv-file containing prices (example: [./media/test.csv](./media/test.csv));
+- `index.html` — price chart and statistics drawn using the Bokeh library and saved to an .html-file (example: [./media/index.html](./media/index.html));
+- `index.html.md` — statistics as simple text, saved in markdown format (example: [./media/index.html.md](./media/index.html.md)).
+
+![](./media/index.html.png)
+
 
 ### Using import
 

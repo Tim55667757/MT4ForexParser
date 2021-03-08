@@ -131,6 +131,18 @@ Process finished with exit code 0
 2019.07.08,16:00,1.12228,1.1224,1.12091,1.12153,7381
 ```
 
+Кроме того, вы можете построить интерактивный график цен (используя библиотеку [PriceGenerator](https://github.com/Tim55667757/PriceGenerator)). Для этого укажите ключ `--render` после ключа `--parse`:
+```commandline
+mt4forexparser --mt4-history ./tests/EURUSD240_new_format_401.hst --output test.csv --parse --render
+```
+
+После выполнения команды выше вы получите три файла:
+- `test.csv` — файл в формате .csv, который содержит цены (пример: [./media/test.csv](./media/test.csv));
+- `index.html` — график цен и статистику, отрисованные при помощи библиотеки Bokeh и сохранённые в .html-файл (пример: [./media/index.html](./media/index.html));
+- `index.html.md` — статистика в текстовом виде, сохранённая в маркдаун-формате (пример: [./media/index.html.md](./media/index.html.md)).
+
+![](./media/index.html.png)
+
 
 ### Через импорт модуля
 
