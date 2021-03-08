@@ -30,3 +30,14 @@ class TestBaseMethods():
             outputFile=os.path.abspath("tests/test.csv")
         )
         assert os.path.exists(os.path.abspath("tests/test.csv")), "Output file must be created after parser work finished!"
+
+    def test_Render(self):
+        testData = [
+            os.path.abspath("tests/EURUSD240_old_format_400.hst"),
+            os.path.abspath("tests/EURUSD240_new_format_401.hst"),
+        ]
+        for test in testData:
+            parsedData = MT4ForexParser.MT4ParseToPD(historyFile=test)
+            MT4ForexParser.Render(prices=parsedData, name="TEST", show=False)
+            assert os.path.exists(os.path.abspath("index.html")), "index.html file must be created!"
+            assert os.path.exists(os.path.abspath("index.html.md")), "index.html.md file must be created!"
