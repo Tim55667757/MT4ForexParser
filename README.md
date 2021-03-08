@@ -40,7 +40,8 @@ Output:
 usage: python MT4ForexParser.py [some options] [one command]
 
 Metatrader 4 forex history parser. Read, parse and save history as .csv-file
-or pandas dataframe.
+or pandas dataframe. Also you can draw an interactive chart. See examples:
+https://tim55667757.github.io/MT4ForexParser
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -55,8 +56,9 @@ optional arguments:
                         40 = ERROR, 50 = CRITICAL.
   --parse               Command: read, parse and save mt4-history as pandas
                         dataframe or .csv-file if --output is define.
-
-Process finished with exit code 0
+  --render              Command: use PriceGenerator module to render
+                        interactive chart from parsed data. This key only used
+                        with --parse key.
 ```
 
 
@@ -82,8 +84,6 @@ MT4ForexParser.py   L:73   INFO    [2020-07-21 20:47:00,383] Forex history saved
 MT4ForexParser.py   L:148  DEBUG   [2020-07-21 20:47:00,384] All MT4 parser operations are finished success (summary code is 0).
 MT4ForexParser.py   L:153  DEBUG   [2020-07-21 20:47:00,384] MT4 parser work duration: 0:00:00.249747
 MT4ForexParser.py   L:154  DEBUG   [2020-07-21 20:47:00,384] MT4 parser work finished: 2020-07-21 20:47:00
-
-Process finished with exit code 0
 ```
 
 This will give you file ./tests/EURUSD240_old_format_400.csv with the following content (5909 lines in total):
@@ -117,8 +117,6 @@ MT4ForexParser.py   L:73   INFO    [2020-07-21 20:55:43,187] Forex history saved
 MT4ForexParser.py   L:148  DEBUG   [2020-07-21 20:55:43,188] All MT4 parser operations are finished success (summary code is 0).
 MT4ForexParser.py   L:153  DEBUG   [2020-07-21 20:55:43,188] MT4 parser work duration: 0:00:00.594304
 MT4ForexParser.py   L:154  DEBUG   [2020-07-21 20:55:43,189] MT4 parser work finished: 2020-07-21 20:55:43
-
-Process finished with exit code 0
 ```
 
 The file ./tests/EURUSD240_new_format_401.csv will be completely similar and include the same columns: "date", "time", "open", "high", "low", "close", "volume" (total 12969 lines):
@@ -131,6 +129,18 @@ The file ./tests/EURUSD240_new_format_401.csv will be completely similar and inc
 2019.07.08,12:00,1.12309,1.12322,1.12123,1.12228,9257
 2019.07.08,16:00,1.12228,1.1224,1.12091,1.12153,7381
 ```
+
+Also, you can draw an interactive chart (see: [PriceGenerator](https://github.com/Tim55667757/PriceGenerator) library) using `--render` key after `--parse` key:
+```commandline
+mt4forexparser --mt4-history ./tests/EURUSD240_new_format_401.hst --output test.csv --parse --render
+```
+
+After running the command above, you will get three files:
+- `test.csv` — .csv-file containing prices (example: [./media/test.csv](./media/test.csv));
+- `index.html` — price chart and statistics drawn using the Bokeh library and saved to an .html-file (example: [./media/index.html](./media/index.html));
+- `index.html.md` — statistics as simple text, saved in markdown format (example: [./media/index.html.md](./media/index.html.md)).
+
+![](./media/index.html.png)
 
 
 ### Using import

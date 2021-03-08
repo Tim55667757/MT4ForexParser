@@ -7,7 +7,7 @@
 from setuptools import setup
 import os
 
-__version__ = "1.0"
+__version__ = "1.1"
 
 devStatus = "4 - Beta"
 
@@ -34,7 +34,7 @@ setup(
 
     version=__version__,
 
-    description="Read forex data in MetaTrader 4 .hst-format and convert into .csv file and pandas dataframe.",
+    description="Read forex data in MetaTrader 4 .hst-format and convert into .csv file and pandas dataframe. Also you can draw an interactive chart.",
 
     long_description="GitHub Pages: https://tim55667757.github.io/MT4ForexParser",
 
@@ -68,31 +68,26 @@ setup(
         "stock",
         "trade",
         "candlestick",
+        "chart",
         "parser",
         "MetaTrader",
+        "MetaTrader4",
+    ],
+
+    tests_require=[
+        "pytest>=6.2.2",
+        "pandas>=1.2.2",
+        "pricegenerator>=1.2.36",
+    ],
+
+    install_requires=[
+        "pandas>=1.2.2",
+        "pricegenerator>=1.2.36",
     ],
 
     packages=[
         "mt4forexparser",
     ],
-
-    tests_require=[
-        "pytest",
-        "pandas",
-    ],
-
-    package_data={
-        "": [
-            "./mt4forexparser/*.py",
-
-            "./tests/*.py",
-            "./tests/*.hst",
-
-            "LICENSE",
-            "README.md",
-            "README_RU.md",
-        ],
-    },
 
     zip_safe=True,
 )
