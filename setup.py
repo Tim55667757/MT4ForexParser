@@ -77,12 +77,12 @@ setup(
     tests_require=[
         "pytest>=6.2.2",
         "pandas>=1.2.2",
-        "pricegenerator>=1.2.36",
+        "pricegenerator>=1.2.46",
     ],
 
     install_requires=[
         "pandas>=1.2.2",
-        "pricegenerator>=1.2.36",
+        "pricegenerator>=1.2.46",
     ],
 
     packages=[
