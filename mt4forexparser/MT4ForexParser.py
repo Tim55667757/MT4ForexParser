@@ -25,7 +25,8 @@ from pricegenerator import PriceGenerator as pg
 uLogger = uLog.UniLogger
 uLogger.level = 10  # debug level by default
 uLogger.handlers[0].level = 20  # info level by default for STDOUT
-uLogger.handlers[1].level = 10  # debug level by default for log.txt
+uLogger.handlers[1].level = 50  # disable duplicate logging added by PriceGenerator
+# uLogger.handlers[1].level = 10  # debug level by default for log.txt
 
 
 def MT4ParseToPD(historyFile, outputFile=None):
@@ -129,7 +130,8 @@ def Main():
     if args.debug_level:
         uLogger.level = 10  # always debug level by default
         uLogger.handlers[0].level = args.debug_level  # level for STDOUT
-        uLogger.handlers[1].level = 10  # always debug level for log.txt
+        uLogger.handlers[1].level = 50  # disable duplicate logging added by PriceGenerator
+        # uLogger.handlers[1].level = 10  # always debug level for log.txt
 
     start = datetime.now()
     uLogger.debug("MT4 parser started: {}".format(start.strftime("%Y-%m-%d %H:%M:%S")))
