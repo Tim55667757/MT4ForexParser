@@ -11,7 +11,7 @@ class TestBaseMethods():
     def init(self):
         MT4ForexParser.uLogger.level = 50  # Disable debug logging while test, logger CRITICAL = 50
         MT4ForexParser.uLogger.handlers[0].level = 50  # Disable debug logging for STDOUT
-        MT4ForexParser.uLogger.handlers[1].level = 50  # Disable debug logging for log.txt
+        # MT4ForexParser.uLogger.handlers[1].level = 50  # Disable debug logging for log.txt
 
     def test_ParserReturnPandasDataframe(self):
         testData = [
