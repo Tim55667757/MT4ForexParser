@@ -3,6 +3,7 @@ twine == 4.0.1  # MIT License
 pytest >= 7.1.2  # MIT License
 
 # MT4ForexParser module requirements:
+urllib3 >= 1.26  # MIT License
 requests >= 2.25.1  # Apache-2.0 license
 pandas >= 1.5.2  # MIT License
 numpy >= 1.23.5  # BSD-3-Clause license
