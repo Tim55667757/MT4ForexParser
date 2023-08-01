@@ -1,27 +1,49 @@
 language: python
-python: '3.7'
+python:
+  - "3.7"
+  - "3.8"
+  - "3.9"
+  - "3.10"
+  - "3.11"
+
 branches:
   only:
-  - master
-  - develop
+    - master
+#    - /^release-.*$/
+#    - develop
 
-install:
-  - pip install pytest coverage codacy-coverage
-  - pip install -r requirements.txt
+stages:
+  - env-test-build-publish
 
-script:
-  - coverage run -m py.test tests -v --disable-pytest-warnings
-  - coverage xml
-
-deploy:
-  provider: pypi
-  username: "__token__"
-  password:
-    secure: "Te0JWjS4bInUNHXnI10jhpAZeKo8Q5K9VqamjeH+Oqbdq2EiRy1TsoMwFNCFaU1RjWk5ciQOtLbL0tQq4BXeC5K0R0dkaziCHlCAMUo/JlOHQhpmREK9z4UIPQon5XNHJ1/rOzQ1O2RUYMRa6QrEO2M1jBAZWFbPlDPtucUWpbslPH/8YikAF9bj8IHFMbinVdXTkznOmQKLEGyskga1o5hAZPVAyEbei21VK2is0HTl2hH5ZkzIrp7lcbZ+yj5ALv5vl3M5754CE28xbquekdjiolOVpHp/yC/NNMPtCXDQQC773t1iolbJGYpujmvHBb0j4MZiPTvKddj3zzU1yLOAiV623FOEBimPxXpLFZC3XiSHnY7WJaMhSEfGZJcEsuoCaCFgqJR5AIA1nOGDQOSnAaPmrHbx4rSuSUMnGHEMegBzOyf8ZXTQfVkKkk6F5pEXh0dxVN6zPxSlCN3m+b+wUyGvj/0BZyGjbvWXwULpBbbuxifyoGPI0djE5JQ2WimBqsE4TnzVoFoqMrEM0YLFEdVYPjJ9QX45wGeZJWQ7+SMePU1djq3uLgyiTfhamUClqdRBVQXINs9pvcPILPuad2u6BepSA96vSpdHVgTTPETTQxvBaSheZSdoLQEH7Qt7LASJsX//S24DPw5N+zjzwOZQR/euHyE4eJHnwnQ="
-  distributions: sdist bdist_wheel
-  on:
-    all_branches: true
-  skip_cleanup: true
-
-after_script:
-  - echo "All PyPI operations done."
+jobs:
+  include:
+    - stage: env-test-build-publish
+      name: "Stages: PRE-BUILDING -> TESTING -> BUILDING -> PUBLISHING to PyPI"
+      install:
+        - echo "---> Running PRE-BUILDING stage..."
+        - python -m pip install --upgrade pip --force-reinstall
+        - pip install setuptools==59.5.0 --force-reinstall
+        - pip install -r requirements.txt
+      before_script:
+        - export PYTHONPATH=$PYTHONPATH:$PWD:$PWD/tksbrokerapi:$PWD/tests
+      script:
+        - echo "---> Running TESTING stage..."
+        - pytest tests -v --disable-pytest-warnings
+        - echo "---> Running BUILDING stage..."
+        - python setup.py sdist bdist_wheel
+        - |
+          if [ $TRAVIS_PULL_REQUEST == false ]; then
+            echo "---> Running PUBLISHING to PyPI stage...";
+            python -m twine upload --verbose dist/* --skip-existing;
+          else
+            echo "---> SKIPPING PUBLISHING to PyPI stage, because this is Pull Request build";
+          fi
+      after_failure:
+        - echo "Some issues occurred. See full logs."
+      after_success:
+        - |
+          if [ $TRAVIS_PULL_REQUEST == false ]; then
+            echo "All stages PRE-BUILDING -> TESTING -> BUILDING -> PUBLISHING to PyPI - done";
+          else
+            echo "All PR stages PRE-BUILDING -> TESTING -> BUILDING -> [PUBLISHING to PyPI][SKIPPED] - done";
+          fi
