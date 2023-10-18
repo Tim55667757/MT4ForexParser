@@ -1,5 +1,5 @@
 # Build requirements:
-urllib3 == 1.26.6  # MIT License
+urllib3 == 1.26.18  # MIT License
 twine == 4.0.1  # MIT License
 pytest >= 7.1.2  # MIT License
 
